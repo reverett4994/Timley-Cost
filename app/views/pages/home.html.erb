@@ -1,5 +1,5 @@
 Select your state (for rough tax calculation):<br>
-<select>
+<select id='state'>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -63,13 +63,16 @@ Select your state (for rough tax calculation):<br>
   Hourly Cost:<br>
   <input type="text" name="lastname" id='time_amount'>
 <script>
-
+ var taxs = { AL:.091, AK:.017,AZ:.083,AR:.094,CA:.085,CO:.075,CT:.063,DE:.0,FL:.068,GA:.071,HI:.043,ID:.06,IL:.087,IN:.07,IA:.068,KS:.086,KY:.06,LA:.10,ME:.055,MD:.06,MA:.062,MI:.06,MN:.074,MS:.07,MO:.08,MT:.0,NE:.069,NV:.081,NH:.0,NJ:.066,NM:.076,NY:.085,NC:.07,ND:.068,OH:.071,OK:.089,OR:.00,PA:.063,RI:.07,SC:.073,SD:.064,TN:.094,TX:.081,UT:.067,VT:.061,VA:.056,WA:.091,WV:.063,WI:.054,WY:.54,DC:.057};
  $(".button").click(function(){
  	var earnings = parseFloat($('#h_earnings').val());
  	var cost = parseFloat($('#cost').val());
+ 	state=$('#state').val()
+ 	cost+=cost*taxs[state]
  	//earnings=earnings.toFixed(2)
  	var time_amount=cost/earnings 
     $('#time_amount').val(time_amount);
+    alert(state)
  }); 
 
 </script>
