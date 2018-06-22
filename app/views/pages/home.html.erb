@@ -1,4 +1,5 @@
-Select your state (for rough tax calculation):<br>
+<div id='wrapper'>
+Select your state (for sales tax):<br>
 <select id='state'>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
@@ -53,26 +54,65 @@ Select your state (for rough tax calculation):<br>
 	<option value="WY">Wyoming</option>
 </select>				
 <br>
+  Custom sales tax:<br>
+  <input type="text" name="firstname" id='c_s_tax'><br>
+   Custom income tax:<br>
+  <input type="text" name="firstname" id='c_i_tax'><br>
   Hourly Earnings:<br>
   <input type="text" name="firstname" id='h_earnings'><br>
   Cost:<br>
   <input type="text" name="lastname" id='cost'>
   <br>
-  <button class="button">Green</button>
+  <button class="button">How Many Hours?</button>
   <br>
   Hourly Cost:<br>
   <input type="text" name="lastname" id='time_amount'>
+
+  <div id='text_explination'>
+  	<p>Find how many hours of work that new purchase is worth!</p>
+  </div>
+
+
+ </div>
 <script>
+
+ var i_tax=''
+ var s_tax=''
  var taxs = { AL:.091, AK:.017,AZ:.083,AR:.094,CA:.085,CO:.075,CT:.063,DE:.0,FL:.068,GA:.071,HI:.043,ID:.06,IL:.087,IN:.07,IA:.068,KS:.086,KY:.06,LA:.10,ME:.055,MD:.06,MA:.062,MI:.06,MN:.074,MS:.07,MO:.08,MT:.0,NE:.069,NV:.081,NH:.0,NJ:.066,NM:.076,NY:.085,NC:.07,ND:.068,OH:.071,OK:.089,OR:.00,PA:.063,RI:.07,SC:.073,SD:.064,TN:.094,TX:.081,UT:.067,VT:.061,VA:.056,WA:.091,WV:.063,WI:.054,WY:.54,DC:.057};
+$('#c_s_tax').change(function(){
+	if ($('#c_s_tax').val()==false) {
+		$('#state').prop('disabled', false);
+	} else {
+		$('#state').prop('disabled', 'disabled');		
+	}
+    
+});
+
  $(".button").click(function(){
+
  	var earnings = parseFloat($('#h_earnings').val());
  	var cost = parseFloat($('#cost').val());
- 	state=$('#state').val()
- 	cost+=cost*taxs[state]
- 	//earnings=earnings.toFixed(2)
+ 	//Check for custom sales tax
+ 	if ( !$('#c_s_tax').val()) {
+    	state=$('#state').val()
+ 		cost+=cost*taxs[state]
+ 		s_tax=taxs[state]
+	} else {
+	    cost+=cost*$('#c_s_tax').val()
+	    s_tax=$('#c_s_tax').val()
+	}
+ 	//Check for custom income tax
+ 	if ( !$('#c_i_tax').val()) {
+		earnings -= earnings*.18
+ 		i_tax='.18'
+	} else {
+	    earnings-=earnings*$('#c_i_tax').val()
+	    i_tax=$('#c_i_tax').val()
+	}
  	var time_amount=cost/earnings 
+ 	time_amount=time_amount.toFixed(2)
     $('#time_amount').val(time_amount);
-    alert(state)
+    $('#text_explination p').html("With an hourly income of $"+$('#h_earnings').val()+" and a average income tax of "+i_tax+", it would take about <b>"+time_amount+" hours</b> to afford a $"+$('#cost').val()+' purchase with a '+s_tax+' sales tax.');
  }); 
 
 </script>

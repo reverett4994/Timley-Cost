@@ -14,7 +14,11 @@
  *= require_self
  */
 
-
+#wrapper{
+	width: 100%;
+	padding-top:10em;
+	text-align: center;
+}
 .button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -26,4 +30,8 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+}
+#text_explination{
+	margin:5em auto;
+	text-align: center;
 }
