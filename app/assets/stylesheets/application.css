@@ -10,17 +10,71 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+font-family: 'Raleway', sans-serif;
+
+    font-family: 'Montserrat', sans-serif;
+
  *= require_tree .
  *= require_self
  */
-
+html, body{
+	width: 100%;
+	margin:0;
+	padding: 0;
+	background-color: #fdfaf0;
+}
 #wrapper{
 	width: 100%;
-	padding-top:10em;
+	padding-top:5em;
 	text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+.header{
+	width: 100%;
+	height: 5em;
+	max-height: 5em;
+	background-color: #4db8ff;
+    font-family: 'Raleway', sans-serif;
+	font-size: 30px;
+}
+h1{
+	display: inline-block;
+	color: white;
+	margin-left: .5em;
+}
+h1 span{
+	color: #ff6600;
+}
+h3{
+	margin-bottom: 1em;
+}
+h5{
+	cursor: pointer
+}
+.sub_header{
+	margin-bottom: 3em;
+	font-weight: bold;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	line-height: 2em;
+	font-size: 16px;
+}
+label{
+	margin-bottom: 1em;
+}
+.help{
+	margin:.3em;
+	margin-bottom: -1em;
+	font-size: 13px;
+}
+input{
+	margin:1em 0;
 }
 .button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4db8ff; /* Blue */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -30,6 +84,7 @@
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    margin-bottom: 1em;
 }
 #text_explination{
 	margin:5em auto;
