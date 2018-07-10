@@ -113,45 +113,48 @@ $('#c_s_tax').change(function(){
 // Setup form validation on all forms
   $.validate({
     onSuccess : function() {
-    
        $(".button").click(function(){
- 	var earnings = 0;
- 	var earnings_before_tax=0
- 	if ($('#h_earnings').val() > 1000) {
-		earnings = parseFloat($('#h_earnings').val());
-		earnings =parseFloat($('#h_earnings').val()) / 2080
-		earnings_before_tax=earnings
- 	} else {
-		earnings = parseFloat($('#h_earnings').val());
-		earnings_before_tax=earnings
- 	}
- 	
- 	var cost = parseFloat($('#cost').val());
- 	//Check for custom sales tax
- 	if ( !$('#c_s_tax').val()) {
-    	state=$('#state').val()
- 		cost+=cost*taxs[state]
- 		s_tax=taxs[state]
-	} else {
-	    cost+=cost*$('#c_s_tax').val()
-	    s_tax=$('#c_s_tax').val()
-	}
- 	//Check for custom income tax
- 	if ( !$('#c_i_tax').val()) {
-		earnings -= earnings*.18
- 		i_tax='.18'
-	} else {
-	    earnings-=earnings*$('#c_i_tax').val()
-	    i_tax=$('#c_i_tax').val()
-	}
- 	var time_amount=cost/earnings 
- 	time_amount=time_amount.toFixed(2)
-    $('#time_amount').text(time_amount + " hours");
-    $('#text_explination p').html("With an hourly income of $"+earnings_before_tax.toFixed(2)+" and a average income tax of "+i_tax+", it would take about <b>"+time_amount+" hours</b> to afford a $"+$('#cost').val()+' purchase with a '+s_tax+' sales tax.');
- }); 
+		 	var earnings = 0;
+		 	var earnings_before_tax=0
+		 	if ($('#h_earnings').val() > 1000) {
+				earnings = parseFloat($('#h_earnings').val());
+				earnings =parseFloat($('#h_earnings').val()) / 2080
+				earnings_before_tax=earnings
+		 	} else {
+				earnings = parseFloat($('#h_earnings').val());
+				earnings_before_tax=earnings
+		 	}
+		 	
+		 	var cost = parseFloat($('#cost').val());
+		 	//Check for custom sales tax
+		 	if ( !$('#c_s_tax').val()) {
+		    	state=$('#state').val()
+		 		cost+=cost*taxs[state]
+		 		s_tax=taxs[state]
+			} else {
+			    cost+=cost*$('#c_s_tax').val()
+			    s_tax=$('#c_s_tax').val()
+			}
+		 	//Check for custom income tax
+		 	if ( !$('#c_i_tax').val()) {
+				earnings -= earnings*.18
+		 		i_tax='.18'
+			} else {
+			    earnings-=earnings*$('#c_i_tax').val()
+			    i_tax=$('#c_i_tax').val()
+			}
+		 	var time_amount=cost/earnings 
+		 	time_amount=time_amount.toFixed(2)
+		 	// Find minutes from fraction of hour
+		 	var mins=60*(time_amount % 1)
+		 	mins=Math.round(mins)
+		 	time_amount=parseInt(time_amount);
+
+
+		    $('#time_amount').html("<b>"+time_amount+" hours and "+mins+" minutes</b> ")
+		    $('#text_explination p').html("With an hourly income of $"+earnings_before_tax.toFixed(2)+" and a average income tax of "+i_tax+", it would take about <b>"+time_amount+" hours and "+mins+" minutes</b> to afford a $"+$('#cost').val()+' purchase with a '+s_tax+' sales tax.');
+	 }); 
     },
   });
 
-// Get minutes from fraction of hour
-// 60 * .5 = 30
 </script>
